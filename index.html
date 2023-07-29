@@ -1,47 +1,33 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Permanente tekstweergave</title>
+  <title>Zoekfunctie</title>
   <style>
-    /* Voeg hier je gewenste opmaak toe voor het tekstvak en de weergavecontainer */
+    /* Voeg hier je gewenste opmaak toe */
   </style>
 </head>
 <body>
-  <form id="inputForm">
-    <label for="inputText">Typ hier uw tekst:</label>
-    <input type="text" id="inputText" />
-    <button type="submit">Verzenden</button>
+  <form id="searchForm">
+    <label for="searchQuery">Zoek naar een woord:</label>
+    <input type="text" id="searchQuery" />
+    <button type="submit">Zoeken</button>
   </form>
-  <div id="resultContainer"></div>
 
-<script>
-  const form = document.getElementById('inputForm');
-  const input = document.getElementById('inputText');
-  const resultContainer = document.getElementById('resultContainer');
+  <script>
+    const searchForm = document.getElementById('searchForm');
 
-  // Wanneer het formulier wordt verzonden
-  form.addEventListener('submit', function (event) {
-    event.preventDefault(); // Voorkom het standaardgedrag van het formulier
+    // Wanneer het zoekformulier wordt verzonden
+    searchForm.addEventListener('submit', function (event) {
+      event.preventDefault(); // Voorkom het standaardgedrag van het formulier
 
-    const inputText = input.value.trim();
+      const searchQuery = document.getElementById('searchQuery').value.trim();
 
-    if (inputText !== '') {
-      // Opslaan in localStorage
-      localStorage.setItem('savedText', inputText);
-
-      // Toon de ingevulde tekst in de resultaatcontainer
-      resultContainer.textContent = inputText;
-    }
-  });
-
-  // Laad de opgeslagen tekst en toon deze bij het laden van de pagina
-  document.addEventListener('DOMContentLoaded', function () {
-    const savedText = localStorage.getItem('savedText');
-
-    if (savedText) {
-      resultContainer.textContent = savedText;
-    }
-  });
-</script>
+      if (searchQuery !== '') {
+        // Ga naar de resultatenpagina met het zoekwoord in de URL
+        window.location.href = `/result/${encodeURIComponent(searchQuery)}`;
+      }
+    });
+  </script>
 </body>
 </html>
